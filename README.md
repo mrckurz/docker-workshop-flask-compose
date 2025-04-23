@@ -1,6 +1,6 @@
 # 🚀 Flask + MySQL Integration with Docker Compose
 
-This project demonstrates a Flask web application that connects to a MySQL 8 database using Docker Compose. It includes everything you need to start working with multi-container applications.
+This project demonstrates a Flask web application that connects to a MySQL 8 database using Docker Compose. It's a great starting point for learning multi-container development workflows.
 
 ---
 
@@ -19,11 +19,11 @@ Ensure the following are installed on your system:
 
 ### 🔹 macOS
 - Docker Desktop: https://www.docker.com/products/docker-desktop
-- Check: `docker --version` and `docker compose version`
+- Check with: `docker --version` and `docker compose version`
 
 ### 🔹 Windows
-- Docker Desktop for Windows (with WSL2 backend recommended)
-- Check in PowerShell: `docker --version` and `docker compose version`
+- Docker Desktop for Windows (WSL2 backend recommended)
+- Check with PowerShell: `docker --version` and `docker compose version`
 
 ### 🔹 Linux (Ubuntu/Debian)
 ```bash
@@ -32,8 +32,7 @@ sudo apt install docker.io docker-compose-plugin
 sudo usermod -aG docker $USER
 newgrp docker
 ```
-
-Verify:
+Then verify:
 ```bash
 docker --version
 docker compose version
@@ -41,48 +40,70 @@ docker compose version
 
 ---
 
-## ▶️ How to Use This Project
+## ▶️ How to Run This Project Locally
 
-### Step 1: Clone or unzip the project folder
+### Step 1: Clone the Repository
 ```bash
+git clone https://github.com/your-username/compose-flask-app.git
 cd compose-flask-app
 ```
 
+Or unzip the provided archive and `cd` into it.
+
 ---
 
-### Step 2: Build and run the services
+### Step 2: Build the Project
 ```bash
-docker compose up -d --build
+docker compose build
 ```
 
-This will:
-- Build the Flask image with `mysql-connector-python` installed
-- Start the Flask service (on port 5001)
-- Start the MySQL 8 database container in the background
+This builds the custom Flask image with `mysql-connector-python`.
 
 ---
 
-### Step 3: Visit the Flask app
-Open in your browser:
-```
-http://localhost:5001
+### Step 3: Start the Services
+```bash
+docker compose up -d
 ```
 
-You should see something like:
+This runs both:
+- The **Flask web app** (on port `5002`)
+- The **MySQL database** container in the background
+
+---
+
+### Step 4: Open the App
+Visit:
+```
+http://localhost:5002
+```
+
+You should see:
 > MySQL server version: 8.0.36
 
 ---
 
-### Step 4: Interact and explore
-```bash
-docker compose ps                       # View running services
-docker logs compose-flask-app-web-1    # View Flask logs
-docker exec -it compose-flask-app-web-1 sh   # Enter Flask container shell
-```
+## 🧪 Inspect the Environment via CLI
+
+- Check running containers:
+  ```bash
+  docker compose ps
+  ```
+
+- View container logs:
+  ```bash
+  docker compose logs
+  docker logs compose-flask-app-web-1
+  ```
+
+- Access the container shell:
+  ```bash
+  docker exec -it compose-flask-app-web-1 sh
+  ```
 
 ---
 
-### Step 5: Tear it down
+### Step 5: Stop Everything
 ```bash
 docker compose down
 ```
@@ -93,19 +114,18 @@ This stops and removes all containers, networks, and volumes.
 
 ## 📘 How It Works
 
-- The Flask app uses the `mysql-connector-python` package to connect to the database.
-- Hostname `db` in the Compose file refers to the MySQL service.
-- Flask executes a simple query: `SELECT VERSION()` to retrieve the MySQL version.
+- The Flask app connects to MySQL using `mysql-connector-python`
+- Hostname `db` refers to the MySQL container
+- The Flask route `/` runs a query: `SELECT VERSION()` and returns the result
 
 ---
 
-## 🧩 Expand It
+## 💡 You Can Extend This
 
-You can extend this example by:
-- Creating tables and inserting sample data
-- Using SQLAlchemy for ORM
-- Exposing database interaction through Flask routes
+- Add Flask routes that read/write data to MySQL
+- Use SQLAlchemy to interact with the database using models
+- Preload tables using SQL scripts or Docker entrypoints
 
 ---
 
-Happy hacking! 🐳🧡
+Happy coding with Docker Compose! 🐳🔥
