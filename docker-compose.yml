@@ -1,20 +1,18 @@
-version: '3.8'
-
 services:
+  db:
+    image: mysql:8
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: example
+    volumes:
+      - db_data:/var/lib/mysql
+
   web:
     build: .
     ports:
       - "5002:5002"
     depends_on:
       - db
-
-  db:
-    image: mysql:5.7
-    restart: always
-    environment:
-      MYSQL_ROOT_PASSWORD: example
-    volumes:
-      - db_data:/var/lib/mysql
 
 volumes:
   db_data:
